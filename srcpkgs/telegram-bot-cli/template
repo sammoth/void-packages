@@ -1,0 +1,29 @@
+# Template file for 'telegram-bot-cli'
+pkgname=telegram-bot-cli
+version=1
+revision=2
+wrksrc="telegram-bot-cli-master"
+build_style=go
+go_import_path=github.com/amitizle/telegram-bot-cli
+go_ldflags="-extldflags=-fuse-ld=bfd"
+go_get=yes
+go_mod_mode=default
+short_desc="Go Telegram CLI bot client"
+maintainer="sammoth <sammoth.th@gmail.com>"
+license="Apache-2.0"
+homepage="https://github.com/amitizle/telegram-bot-cli"
+distfiles="https://github.com/amitizle/telegram-bot-cli/archive/master.zip"
+checksum=bbc75e380836c17b61b547b91292a741066b5138f9b7f34f6f9795fe0b44d40f
+
+pre_build() {
+	if [ "$CROSS_BUILD" ] && [ "$XBPS_TARGET_LIBC" = musl ]; then
+		# XXX: when cross building, the binary has a textrel, which segfaults when
+		# launched on musl
+		# FIXME: linkers for the musl toolchains should reject textrels entirely
+		export CGO_ENABLED=0
+	fi
+}
+
+post_install() {
+	vlicense LICENSE
+}
