@@ -18,8 +18,13 @@ short_desc="Modular Wayland compositor library"
 maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://github.com/swaywm/wlroots"
-distfiles="https://github.com/swaywm/wlroots/archive/${version}.tar.gz"
-checksum=c9e9f4f6d2f526d0b2886daf3ec37e64831773059aa669fb98a88522a1626bdb
+wrksrc=wlroots-210125
+
+do_fetch() {
+        git clone https://github.com/swaywm/wlroots.git ${wrksrc} --depth 1
+        cd ${wrksrc}
+        git checkout 1b8330d1f8b881a4ed49c3c2fca0cc2667932e2d
+}
 
 post_install() {
 	vlicense LICENSE
