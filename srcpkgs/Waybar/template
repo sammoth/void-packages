@@ -1,7 +1,7 @@
 # Template file for 'Waybar'
 pkgname=Waybar
 version=0.9.5
-revision=2
+revision=210225
 _date_version=3.0.0
 create_wrksrc=yes
 build_wrksrc=${pkgname}-${version}
@@ -28,11 +28,9 @@ license="MIT"
 homepage="https://github.com/Alexays/Waybar"
 changelog="https://github.com/Alexays/Waybar/releases"
 # date library URLs and checksums taken from subprojects/date.wrap
-distfiles="https://github.com/Alexays/Waybar/archive/${version}.tar.gz
- https://github.com/HowardHinnant/date/archive/v${_date_version}.tar.gz
+distfiles="https://github.com/HowardHinnant/date/archive/v${_date_version}.tar.gz
  https://github.com/mesonbuild/hinnant-date/releases/download/${_date_version}-1/hinnant-date.zip"
-checksum="74d783d4da01c1c3a90a00968d74f47c2193a6952c3b2e0584cf3ddfa1ae4254
- 87bba2eaf0ebc7ec539e5e62fc317cb80671a337c1fb1b84cb9e4d42c6dbebe3
+checksum="87bba2eaf0ebc7ec539e5e62fc317cb80671a337c1fb1b84cb9e4d42c6dbebe3
  6ccaf70732d8bdbd1b6d5fdf3e1b935c23bf269bda12fdfd0e561276f63432fe"
 
 build_options="libnl pulseaudio dbusmenugtk mpd sndio"
@@ -41,6 +39,15 @@ build_options_default="libnl pulseaudio dbusmenugtk mpd sndio"
 desc_option_libnl="Enable libnl support for network related features"
 desc_option_dbusmenugtk="Enable support for tray"
 desc_option_mpd="Enable support for MPD"
+
+wrksrc=Waybar-$revision
+
+do_fetch() {
+        git clone https://github.com/Alexays/Waybar.git ${wrksrc} --depth 1
+        cd ${wrksrc}
+        git checkout master
+        git revert a7056f7ccec0126f3b2a1c86b09a4d6dacef8cce
+}
 
 post_extract() {
 	mv date-${_date_version} ${build_wrksrc}/subprojects/
