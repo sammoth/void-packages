@@ -1,7 +1,7 @@
 # Template file for 'wlroots'
 pkgname=wlroots
 version=0.12.0
-revision=2
+revision=210407
 build_style=meson
 # enable assertions - upstream uses them only for unreachable situations
 configure_args="-Dlogind=disabled -Dlibseat=enabled
@@ -18,12 +18,12 @@ short_desc="Modular Wayland compositor library"
 maintainer="Isaac Freund <ifreund@ifreund.xyz>"
 license="MIT"
 homepage="https://github.com/swaywm/wlroots"
-wrksrc=wlroots-210125
+wrksrc=wlroots-210407
 
 do_fetch() {
         git clone https://github.com/swaywm/wlroots.git ${wrksrc} --depth 1
         cd ${wrksrc}
-        git checkout 1b8330d1f8b881a4ed49c3c2fca0cc2667932e2d
+        git checkout 69c71dbc8afecc5da5c800cdc1475185064b4ac4
 }
 
 post_install() {
